@@ -98,7 +98,7 @@ PACKAGE_JSON_FILE = str(files("superset") / "static/assets/package.json")
 #     "type": "image/png"
 #     "rel": "icon"
 # },
-FAVICONS = [{"href": "/static/assets/images/favicon.png"}]
+FAVICONS = [{"href": "/static/assets/images/favicon_vyakriti.png"}]
 
 
 def _try_json_readversion(filepath: str) -> str | None:
@@ -177,10 +177,10 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 # or use `SUPERSET_SECRET_KEY` environment variable.
 # Use a strong complex alphanumeric string and use a tool to help you generate
 # a sufficiently random sequence, ex: openssl rand -base64 42"
-SECRET_KEY = os.environ.get("SUPERSET_SECRET_KEY") or CHANGE_ME_SECRET_KEY
-#export key=value #to add key in env 
+# SECRET_KEY = os.environ.get("SUPERSET_SECRET_KEY") or CHANGE_ME_SECRET_KEY
+#export key=X7JeQNQ8K6YhSYHwEpj6xzNVfFd5a1yXW5vvIznmxCj4xIgo2MhHrP1p #to add key in env 
 #echo $key to print value
-#SECRET_KEY=X7JeQNQ8K6YhSYHwEpj6xzNVfFd5a1yXW5vvIznmxCj4xIgo2MhHrP1p
+SECRET_KEY="X7JeQNQ8K6YhSYHwEpj6xzNVfFd5a1yXW5vvIznmxCj4xIgo2MhHrP1p"
 # The SQLAlchemy connection string.
 SQLALCHEMY_DATABASE_URI = (
     f"""sqlite:///{os.path.join(DATA_DIR, "superset.db")}?check_same_thread=false"""
@@ -285,10 +285,10 @@ AUTH_RATE_LIMIT = "5 per second"
 # GLOBALS FOR APP Builder
 # ------------------------------
 # Uncomment to setup Your App name
-APP_NAME = "Superset"
+APP_NAME = "vyakriti"
 
 # Specify the App icon
-APP_ICON = "/static/assets/images/superset-logo-horiz.png"
+APP_ICON = "/static/assets/images/superv.png"
 
 # Specify where clicking the logo would take the user'
 # Default value of None will take you to '/superset/welcome'
@@ -432,7 +432,7 @@ DEFAULT_FEATURE_FLAGS: dict[str, bool] = {
     "DASHBOARD_CROSS_FILTERS": True,  # deprecated
     "DASHBOARD_VIRTUALIZATION": True,
     "GLOBAL_ASYNC_QUERIES": False,
-    "EMBEDDED_SUPERSET": False,
+    "EMBEDDED_SUPERSET": True,
     # Enables Alerts and reports new implementation
     "ALERT_REPORTS": False,
     "DASHBOARD_RBAC": False,
@@ -462,7 +462,7 @@ DEFAULT_FEATURE_FLAGS: dict[str, bool] = {
     "DRILL_TO_DETAIL": True,
     "DRILL_BY": True,
     "DATAPANEL_CLOSED_BY_DEFAULT": False,
-    "HORIZONTAL_FILTER_BAR": False,
+    "HORIZONTAL_FILTER_BAR": True,
     # The feature is off by default, and currently only supported in Presto and Postgres,
     # and Bigquery.
     # It also needs to be enabled on a per-database basis, by adding the key/value pair
@@ -579,22 +579,37 @@ EXTRA_CATEGORICAL_COLOR_SCHEMES: list[dict[str, Any]] = []
 
 # THEME_OVERRIDES is used for adding custom theme to superset
 # example code for "My theme" custom scheme
+THEME_OVERRIDES = {
+  "borderRadius": 16,
+  "colors": {
+    "primary": {
+      "base": 'red',
+    },
+    "secondary": {
+      "base": 'green',
+    },
+    "grayscale": {
+      "base": 'orange',
+    }
+  }
+}
 # THEME_OVERRIDES = {
-#   "borderRadius": 4,
+#   "borderRadius": 16,
 #   "colors": {
-#     "primary": {
-#       "base": 'red',
-#     },
-#     "secondary": {
-#       "base": 'green',
-#     },
 #     "grayscale": {
-#       "base": 'orange',
+#       "base": '#666666',
+#       "dark1": '#F7F7F7',
+#       "dark2": '#FFFFFF',
+#       "light1": '#E0E0E0',
+#       "light2": '#B2B2B2',
+#       "light3": '#666666',
+#       "light4": '#323232',
+#       "light5": '#000000',
 #     }
 #   }
 # }
 
-THEME_OVERRIDES: dict[str, Any] = {}
+# THEME_OVERRIDES: dict[str, Any] = {}
 
 # EXTRA_SEQUENTIAL_COLOR_SCHEMES is used for adding custom sequential color schemes
 # EXTRA_SEQUENTIAL_COLOR_SCHEMES =  [
@@ -1679,6 +1694,31 @@ class ExtraDynamicQueryFilters(TypedDict, total=False):
 
 EXTRA_DYNAMIC_QUERY_FILTERS: ExtraDynamicQueryFilters = {}
 
+# from flask import redirect, g, request
+# from flask_appbuilder import expose, IndexView
+# from superset.extensions import (
+#     appbuilder,
+# )
+# from superset.utils.core import (
+#     get_user_id,
+# )
+# from superset.superset_typing import FlaskResponse
+
+# class SupersetIndexView(IndexView):
+#     @expose("/")
+#     def index(self) -> FlaskResponse:
+#         if not g.user or not get_user_id():
+#             return redirect("/login")
+#         user_roles = [role.name.lower() for role in g.user.roles]  # Convert roles to lowercase for case-insensitive comparison
+#         print(user_roles)
+#         if 'admin' in user_roles:
+#             return redirect("/vyakriti/welcome/")
+#         else:
+#             # Handle default redirection for other users
+#             return redirect("/superset/dashboard/8/")
+
+
+# FAB_INDEX_VIEW = f"{SupersetIndexView.__module__}.{SupersetIndexView.__name__}"
 
 # -------------------------------------------------------------------
 # *                WARNING:  STOP EDITING  HERE                    *

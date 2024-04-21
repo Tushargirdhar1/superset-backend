@@ -123,6 +123,8 @@ SqlResults = dict[str, Any]
 
 
 class Superset(BaseSupersetView):
+    # for change the current route path
+    route_base = "/vyakriti"
     """The base views for Superset!"""
 
     logger = logging.getLogger(__name__)
@@ -839,7 +841,7 @@ class Superset(BaseSupersetView):
         if not value:
             return json_error_response(_("permalink state not found"), status=404)
         dashboard_id, state = value["dashboardId"], value.get("state", {})
-        url = f"/superset/dashboard/{dashboard_id}?permalink_key={key}"
+        url = f"/vyakriti/dashboard/{dashboard_id}?permalink_key={key}"
         if url_params := state.get("urlParams"):
             params = parse.urlencode(url_params)
             url = f"{url}&{params}"
